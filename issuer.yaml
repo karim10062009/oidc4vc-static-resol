@@ -1,0 +1,8 @@
+issuer_url: "https://toshiki-honda.github.io/oidc4vc-test"
+credential_definitions:
+  - id: "UniversityDegree"
+    format: "vc+sd-jwt"
+    cryptographic_binding_methods_supported: ["did:jwk"]
+    display:
+      - name: "デジタル卒業証明書"
+        background_color: "#121212"

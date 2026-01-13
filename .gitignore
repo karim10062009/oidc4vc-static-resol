@@ -1,0 +1,22 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+oidc4gen
+
+# Specifications and draft modules
+mods/
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+
+# OS specific files
+.DS_Store
+Thumbs.db
