@@ -25,11 +25,27 @@ const htmlTemplate = `<!DOCTYPE html>
         <p>ウォレットアプリで以下のQRコードをスキャンして、<br>デジタル資格情報を取得してください。</p>
         <canvas id="qrcode"></canvas>
         <p><small>Issuer: %s</small></p>
-        <a href="%s" class="btn">直接リンクを開く (モバイル用)</a>
+        <a id="btn-link" href="#" class="btn">直接リンクを開く (モバイル用)</a>
     </div>
     <script>
-        const issuanceUrl = "%s";
-        QRCode.toCanvas(document.getElementById('qrcode'), issuanceUrl, { width: 256 }, function (error) {
+        const issuer = "%s";
+        const credentialConfigurationId = "UniversityDegree";
+        
+        // 最新の Credential Offer 形式 (Draft 13)
+        const credentialOffer = {
+            credential_issuer: issuer,
+            credential_configuration_ids: [credentialConfigurationId],
+            grants: {
+                "urn:ietf:params:oauth:grant-type:pre-authorized_code": {
+                    "pre-authorized_code": "TODO_RANDOM_CODE_OR_MOCK"
+                }
+            }
+        };
+
+        const offerUrl = "openid-credential-offer://?credential_offer=" + encodeURIComponent(JSON.stringify(credentialOffer));
+        document.getElementById('btn-link').href = offerUrl;
+
+        QRCode.toCanvas(document.getElementById('qrcode'), offerUrl, { width: 256 }, function (error) {
             if (error) console.error(error);
         });
     </script>
@@ -37,13 +53,9 @@ const htmlTemplate = `<!DOCTYPE html>
 </html>
 `
 
-// GenerateHTML は QRコードを含む index.html を出力します。
 func GenerateHTML(outputPath string, issuerURL string) error {
-	// 規格に基づいたカスタムスキーム URL (openid-initiate-issuance://)
-	// credential_configuration_id を指定して、どの資格情報のデモかを示す
-	issuanceUrl := fmt.Sprintf("openid-initiate-issuance://?issuer=%s&credential_configuration_id=UniversityDegree", issuerURL)
-
-	content := fmt.Sprintf(htmlTemplate, issuerURL, issuanceUrl, issuanceUrl)
+	// テンプレートのプレースホルダに合わせて値を埋め込む
+	content := fmt.Sprintf(htmlTemplate, issuerURL, issuerURL)
 
 	if err := os.WriteFile(outputPath, []byte(content), 0644); err != nil {
 		return fmt.Errorf("failed to write index.html: %w", err)

@@ -55,9 +55,10 @@ func runBuild() error {
 
 	// 3. メタデータの初期化
 	issuerMeta := oidc4vc.IssuerMetadata{
-		Issuer:               cfg.IssuerURL,
-		AuthorizationServers: []string{cfg.IssuerURL}, // 自身を認可サーバーとして模倣
-		CredentialEndpoint:   cfg.IssuerURL + "/credentials/push-metadata",
+		Issuer:                            cfg.IssuerURL,
+		AuthorizationServers:              []string{cfg.IssuerURL}, // 自身を認可サーバーとして模倣
+		CredentialEndpoint:                cfg.IssuerURL + "/credentials/push-metadata",
+		CredentialConfigurationsSupported: make(map[string]oidc4vc.CredentialConfiguration),
 	}
 
 	authMeta := oidc4vc.AuthServerMetadata{
@@ -69,17 +70,18 @@ func runBuild() error {
 	}
 
 	for _, d := range cfg.CredentialDefinitions {
-		cd := oidc4vc.CredentialDefinition{
-			ID:     d.ID,
-			Format: d.Format,
-		}
+		configID := d.ID
+		var displays []oidc4vc.Display
 		for _, disp := range d.Display {
-			cd.Display = append(cd.Display, oidc4vc.Display{
+			displays = append(displays, oidc4vc.Display{
 				Name:            disp.Name,
 				BackgroundColor: disp.BackgroundColor,
 			})
 		}
-		issuerMeta.CredentialDefinitionsSupported = append(issuerMeta.CredentialDefinitionsSupported, cd)
+		issuerMeta.CredentialConfigurationsSupported[configID] = oidc4vc.CredentialConfiguration{
+			Format:  d.Format,
+			Display: displays,
+		}
 	}
 
 	// 4. Pre-authorized VC の生成 (push-metadata として出力)

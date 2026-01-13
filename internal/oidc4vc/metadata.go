@@ -3,11 +3,11 @@ package oidc4vc
 // IssuerMetadata は OpenID4VCI 認可サーバー/発行者のメタデータを表します。
 // 規格: OpenID for Verifiable Credential Issuance
 type IssuerMetadata struct {
-	Issuer                         string                 `json:"credential_issuer"`
-	AuthorizationServers           []string               `json:"authorization_servers,omitempty"`
-	CredentialEndpoint             string                 `json:"credential_endpoint"`
-	CredentialDefinitionsSupported []CredentialDefinition `json:"credential_definitions_supported"`
-	Display                        []Display              `json:"display,omitempty"`
+	Issuer                            string                             `json:"credential_issuer"`
+	AuthorizationServers              []string                           `json:"authorization_servers,omitempty"`
+	CredentialEndpoint                string                             `json:"credential_endpoint"`
+	CredentialConfigurationsSupported map[string]CredentialConfiguration `json:"credential_configurations_supported"`
+	Display                           []Display                          `json:"display,omitempty"`
 }
 
 // AuthServerMetadata は OAuth 2.0 認和サーバーのメタデータを表します (RFC 8414)。
@@ -19,9 +19,7 @@ type AuthServerMetadata struct {
 	GrantTypesSupported    []string `json:"grant_types_supported"`
 }
 
-// CredentialDefinition はサポートされる資格情報の定義です。
-type CredentialDefinition struct {
-	ID                                   string           `json:"id"` // oidc4vci では通常 configuration_id
+type CredentialConfiguration struct {
 	Format                               string           `json:"format"`
 	CryptographicBindingMethodsSupported []string         `json:"cryptographic_binding_methods_supported,omitempty"`
 	CredentialSigningAlgorithmsSupported []string         `json:"credential_signing_algorithms_supported,omitempty"`

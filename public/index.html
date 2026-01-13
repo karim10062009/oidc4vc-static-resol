@@ -18,11 +18,27 @@
         <p>ウォレットアプリで以下のQRコードをスキャンして、<br>デジタル資格情報を取得してください。</p>
         <canvas id="qrcode"></canvas>
         <p><small>Issuer: https://tonari-no-usagi.github.io/oidc4vc-static-resol</small></p>
-        <a href="openid-initiate-issuance://?issuer=https://tonari-no-usagi.github.io/oidc4vc-static-resol&credential_configuration_id=UniversityDegree" class="btn">直接リンクを開く (モバイル用)</a>
+        <a id="btn-link" href="#" class="btn">直接リンクを開く (モバイル用)</a>
     </div>
     <script>
-        const issuanceUrl = "openid-initiate-issuance://?issuer=https://tonari-no-usagi.github.io/oidc4vc-static-resol&credential_configuration_id=UniversityDegree";
-        QRCode.toCanvas(document.getElementById('qrcode'), issuanceUrl, { width: 256 }, function (error) {
+        const issuer = "https://tonari-no-usagi.github.io/oidc4vc-static-resol";
+        const credentialConfigurationId = "UniversityDegree";
+        
+        // 最新の Credential Offer 形式 (Draft 13)
+        const credentialOffer = {
+            credential_issuer: issuer,
+            credential_configuration_ids: [credentialConfigurationId],
+            grants: {
+                "urn:ietf:params:oauth:grant-type:pre-authorized_code": {
+                    "pre-authorized_code": "TODO_RANDOM_CODE_OR_MOCK"
+                }
+            }
+        };
+
+        const offerUrl = "openid-credential-offer://?credential_offer=" + encodeURIComponent(JSON.stringify(credentialOffer));
+        document.getElementById('btn-link').href = offerUrl;
+
+        QRCode.toCanvas(document.getElementById('qrcode'), offerUrl, { width: 256 }, function (error) {
             if (error) console.error(error);
         });
     </script>
