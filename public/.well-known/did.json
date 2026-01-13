@@ -8,7 +8,13 @@
     {
       "id": "did:web:tonari-no-usagi.github.io:oidc4vc-static-resol#key-1",
       "type": "JsonWebKey2020",
-      "controller": "did:web:tonari-no-usagi.github.io:oidc4vc-static-resol"
+      "controller": "did:web:tonari-no-usagi.github.io:oidc4vc-static-resol",
+      "publicKeyJwk": {
+        "crv": "P-256",
+        "kty": "EC",
+        "x": "fcRQ8BTRjBwhOD7lGykxAa1hShdV9UqTgAjgRS0SGmE",
+        "y": "nL_jwXLIhTu6pvpe-2yDmVnxTISB11CrzTWngGj-Adk"
+      }
     }
   ],
   "assertionMethod": [

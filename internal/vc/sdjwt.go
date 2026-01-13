@@ -69,3 +69,13 @@ func (s *SDJWT) Sign(issuer string, subject string) (string, error) {
 
 	return sdjwt, nil
 }
+
+// PublicKeyJWK は公開鍵を JWK 形式のマップで返します。
+func (s *SDJWT) PublicKeyJWK() map[string]interface{} {
+	return map[string]interface{}{
+		"kty": "EC",
+		"crv": "P-256",
+		"x":   base64.RawURLEncoding.EncodeToString(s.PrivateKey.PublicKey.X.Bytes()),
+		"y":   base64.RawURLEncoding.EncodeToString(s.PrivateKey.PublicKey.Y.Bytes()),
+	}
+}

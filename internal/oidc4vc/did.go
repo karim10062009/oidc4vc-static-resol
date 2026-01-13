@@ -21,7 +21,7 @@ type VerificationMethod struct {
 }
 
 // GenerateDIDWeb はドメインから did:web ドキュメントを生成します。
-func GenerateDIDWeb(issuerURL string) (*DIDDocument, error) {
+func GenerateDIDWeb(issuerURL string, pubKeyJWK map[string]interface{}) (*DIDDocument, error) {
 	// 1. スキームの除去 (https:// -> "")
 	did := strings.TrimPrefix(issuerURL, "https://")
 	did = strings.TrimPrefix(did, "http://") // 安全のため
@@ -38,11 +38,10 @@ func GenerateDIDWeb(issuerURL string) (*DIDDocument, error) {
 		ID:      didID,
 		VerificationMethod: []VerificationMethod{
 			{
-				ID:         keyID,
-				Type:       "JsonWebKey2020",
-				Controller: didID,
-				// 本来は SDJWT で生成した鍵を渡すべきですが、
-				// ここでは構造を示すためのプレースホルダ（または署名器から取得）
+				ID:           keyID,
+				Type:         "JsonWebKey2020",
+				Controller:   didID,
+				PublicKeyJWK: pubKeyJWK,
 			},
 		},
 		AssertionMethod: []string{keyID},

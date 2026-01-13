@@ -129,7 +129,7 @@ func runBuild() error {
 	}
 
 	// [追加] did.json の生成と書き出し
-	didDoc, err := oidc4vc.GenerateDIDWeb(cfg.IssuerURL)
+	didDoc, err := oidc4vc.GenerateDIDWeb(cfg.IssuerURL, signer.PublicKeyJWK())
 	if err != nil {
 		return err
 	}
